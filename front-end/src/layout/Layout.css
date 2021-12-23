@@ -2,3 +2,54 @@
   background-color: #393a44;
   min-width: 200px;
 }
+
+/* Loader */
+.spinner {
+  animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+.path {
+  stroke-dasharray: 187;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+  0% {
+    stroke: #2e2c2f;
+  }
+  25% {
+    stroke: #475b63;
+  }
+  50% {
+    stroke: #729b79;
+  }
+  75% {
+    stroke: #bacdb0;
+  }
+  100% {
+    stroke: #f3e8ee;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 187;
+  }
+  50% {
+    stroke-dashoffset: 46.75;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: 187;
+    transform: rotate(450deg);
+  }
+}

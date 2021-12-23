@@ -2,17 +2,18 @@
  * Defines the base URL for the API.
  * The default values is overridden by the `API_BASE_URL` environment variable.
  */
-import formatReservationDate from "./format-reservation-date";
-import formatReservationTime from "./format-reservation-date";
+import { useState } from 'react';
+import formatReservationDate from './format-reservation-date';
+import formatReservationTime from './format-reservation-date';
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+  process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
 /**
  * Defines the default headers for these functions to work with `json-server`
  */
 const headers = new Headers();
-headers.append("Content-Type", "application/json");
+headers.append('Content-Type', 'application/json');
 
 /**
  * Fetch `json` from the specified URL and handle error status codes and ignore `AbortError`s
@@ -20,7 +21,7 @@ headers.append("Content-Type", "application/json");
  * This function is NOT exported because it is not needed outside of this file.
  *
  * @param url
- *  the url for the requst.
+ *  the url for the request.
  * @param options
  *  any options for fetch
  * @param onCancel
@@ -44,7 +45,7 @@ async function fetchJson(url, options, onCancel) {
     }
     return payload.data;
   } catch (error) {
-    if (error.name !== "AbortError") {
+    if (error.name !== 'AbortError') {
       console.error(error.stack);
       throw error;
     }
@@ -66,4 +67,74 @@ export async function listReservations(params, signal) {
   return await fetchJson(url, { headers, signal }, [])
     .then(formatReservationDate)
     .then(formatReservationTime);
+}
+
+// custom react hook for the fetch api
+export default function useFetch() {
+  function get(url, abortController) {
+    return new Promise((resolve, reject) => {
+      fetch(API_BASE_URL + url, { signal: abortController.signal })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            reject({ message: data.error });
+          }
+          resolve(data);
+        })
+        .catch((error) => {
+          if (error.name !== 'AbortError') {
+            reject({ message: error.error });
+          }
+        });
+    });
+  }
+
+  function post(url, body, abortController) {
+    return new Promise((resolve, reject) => {
+      fetch(API_BASE_URL + url, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+        signal: abortController.signal,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            console.log(data);
+            reject({ message: data.error });
+          }
+          resolve(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          reject({ message: error.error });
+        });
+    });
+  }
+
+  function put(url, body, abortController) {
+    return new Promise((resolve, reject) => {
+      fetch(API_BASE_URL + url, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(body),
+        signal: abortController.signal,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            reject({ message: data.error });
+          }
+
+          resolve(data);
+        })
+        .catch((error) => {
+          reject({ message: error.error });
+        });
+    });
+  }
+
+  return { get, post, put };
 }
