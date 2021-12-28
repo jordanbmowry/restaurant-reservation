@@ -84,5 +84,9 @@ export function next(currentDate) {
 }
 
 export function formatDisplayDate(date) {
-  return format(date, 'EEEE MMM do yyyy');
+  const dt = new Date(date);
+  const dtDateOnly = new Date(
+    dt.valueOf() + dt.getTimezoneOffset() * 60 * 1000
+  );
+  return format(dtDateOnly, 'EEEE MMM do yyyy');
 }

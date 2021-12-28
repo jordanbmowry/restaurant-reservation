@@ -1,5 +1,4 @@
 import React from 'react';
-import Loader from '../utils/Loader';
 
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import New from './new/New';

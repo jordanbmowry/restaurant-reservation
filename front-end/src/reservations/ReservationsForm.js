@@ -124,7 +124,7 @@ export default function ReservationsForm({ method }) {
           >
             Cancel <i className='fas fa-undo-alt'></i>
           </Button>
-          <Button btnPrimary className='ml-2'>
+          <Button type='submit' btnPrimary className='ml-2'>
             Submit <i className='fas fa-check'></i>
           </Button>
         </div>

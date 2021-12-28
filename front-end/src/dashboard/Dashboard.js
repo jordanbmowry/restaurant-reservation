@@ -3,7 +3,9 @@ import { listReservations } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import useQuery from '../utils/useQuery.js';
 import { formatDisplayDate } from '../utils/date-time';
-import Loader from '../utils/Loader';
+import Loader from '../layout/Loader';
+import CurrentTime from '../layout/CurrentTime';
+import ReservationList from '../reservations/ReservationList/ReservationList';
 
 /**
  * Defines the dashboard page.
@@ -33,15 +35,16 @@ function Dashboard({ date }) {
     return () => abortController.abort();
   }
 
-  const displayDate = formatDisplayDate(new Date(date));
+  const displayDate = formatDisplayDate(date);
   return (
     <main>
       <h1>Dashboard</h1>
+      <CurrentTime />
       <h4 className='mb-0'>Reservations for date:</h4>
       <h2>{displayDate}</h2>
       <div className='d-md-flex mb-3'></div>
       <ErrorAlert error={reservationsError} />
-      {isLoading ? <Loader /> : JSON.stringify(reservations)}
+      {isLoading ? <Loader /> : <ReservationList reservations={reservations} />}
     </main>
   );
 }
