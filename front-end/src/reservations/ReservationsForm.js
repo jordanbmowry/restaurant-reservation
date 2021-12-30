@@ -123,7 +123,6 @@ export default function ReservationsForm({ method }) {
             btnSecondary
             className='mr-2'
             type='button'
-            required
           >
             Cancel <i className='fas fa-undo-alt'></i>
           </Button>
