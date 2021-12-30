@@ -66,6 +66,7 @@ export default function ReservationsForm({ method }) {
           id='first-name'
           onChange={handleChange}
           value={formData.first_name}
+          required
         />
         <FormInput
           name='last_name'
@@ -73,6 +74,7 @@ export default function ReservationsForm({ method }) {
           id='last-name'
           onChange={handleChange}
           value={formData.last_name}
+          required
         />
         <FormInput
           name='mobile_number'
@@ -81,6 +83,7 @@ export default function ReservationsForm({ method }) {
           onChange={handleChange}
           type='tel'
           value={formData.mobile_number}
+          required
         />
         <FormInput
           name='reservation_date'
@@ -91,6 +94,7 @@ export default function ReservationsForm({ method }) {
           value={formData.reservation_date}
           placeholder='YYYY-MM-DD'
           pattern='\d{4}-\d{2}-\d{2}'
+          required
         />
         <FormInput
           name='reservation_time'
@@ -101,6 +105,7 @@ export default function ReservationsForm({ method }) {
           value={formData.reservation_time}
           placeholder='HH:MM'
           pattern='[0-9]{2}:[0-9]{2}'
+          required
         />
         <FormInput
           name='people'
@@ -110,6 +115,7 @@ export default function ReservationsForm({ method }) {
           type='number'
           value={formData.people}
           min='1'
+          required
         />
         <div className='text-center'>
           <Button
@@ -117,6 +123,7 @@ export default function ReservationsForm({ method }) {
             btnSecondary
             className='mr-2'
             type='button'
+            required
           >
             Cancel <i className='fas fa-undo-alt'></i>
           </Button>
