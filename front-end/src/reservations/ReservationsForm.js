@@ -28,10 +28,6 @@ export default function ReservationsForm({ method }) {
       target.value = Number.parseInt(target.value, 10);
     }
 
-    if (target.name === 'mobile_number') {
-      target.value = target.value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-    }
-
     setFormData({
       ...formData,
       [target.name]: target.value,
@@ -84,7 +80,6 @@ export default function ReservationsForm({ method }) {
           id='mobile-number'
           onChange={handleChange}
           type='tel'
-          pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
           value={formData.mobile_number}
         />
         <FormInput
@@ -121,6 +116,7 @@ export default function ReservationsForm({ method }) {
             onClick={() => history.goBack()}
             btnSecondary
             className='mr-2'
+            type='button'
           >
             Cancel <i className='fas fa-undo-alt'></i>
           </Button>
