@@ -57,6 +57,12 @@ function timeIsValid(timeString) {
   return timeString.match(timeRegex)?.[0];
 }
 
+function reservationTimeIsValid(timeString) {
+  const openingTimeString = '10:30';
+  const closingTimeSting = '21:30';
+  return timeString <= closingTimeSting && timeString >= openingTimeString;
+}
+
 function validateValues(_req, res, next) {
   const body = res.locals.body;
 
@@ -68,13 +74,6 @@ function validateValues(_req, res, next) {
       message: 'people must be an integer that is greater than zero',
     });
   }
-
-  // if (people < 1) {
-  //   return next({
-  //     status: 400,
-  //     message: 'people must be an integer that is greater than zero',
-  //   });
-  // }
 
   if (!timeIsValid(reservation_time)) {
     return next({
@@ -103,6 +102,14 @@ function validateValues(_req, res, next) {
       message: `You are attempting to submit a reservation in the past. Only future reservations are allowed`,
     });
   }
+
+  if (!reservationTimeIsValid(reservation_time)) {
+    return next({
+      status: 400,
+      message: 'The reservation time must be between 10:30 AM and 9:30 PM',
+    });
+  }
+
   next();
 }
 

@@ -23,15 +23,19 @@ export default function ReservationsForm({ method }) {
   };
 
   const [formData, setFormData] = useState({ ...initialFormState });
+
   const handleChange = ({ target }) => {
     if (target.name === 'people' && typeof target.value === 'string') {
-      target.value = Number.parseInt(target.value, 10);
+      setFormData({
+        ...formData,
+        [target.name]: Number.parseInt(target.value, 10),
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [target.name]: target.value,
+      });
     }
-
-    setFormData({
-      ...formData,
-      [target.name]: target.value,
-    });
   };
 
   const handleSubmit = (event) => {
