@@ -25,8 +25,8 @@ const VALID_PROPERTIES = [
   'updated_at',
 ];
 
-function hasOnlyValidProperties(req, _res, next) {
-  const body = req.body.data ?? req.body;
+function hasOnlyValidProperties(_req, res, next) {
+  const body = res.locals.body;
 
   const invalidFields = Object.keys(body).filter(
     (field) => !VALID_PROPERTIES.includes(field)
@@ -40,9 +40,9 @@ function hasOnlyValidProperties(req, _res, next) {
   next();
 }
 
-function dateNotTuesday(dateString) {
+function dateIsTuesday(dateString) {
   const date = new Date(dateString);
-  return date.getUTCDay() !== 2;
+  return date.getUTCDay() === 2;
 }
 
 function isDateInFuture(dateString, timeString) {
@@ -50,25 +50,31 @@ function isDateInFuture(dateString, timeString) {
   return validator.isAfter(reservationDate);
 }
 
-//regex for validating date and time
+//regex for validating time
 const timeRegex = /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
-// const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 function timeIsValid(timeString) {
   return timeString.match(timeRegex)?.[0];
 }
 
-function validateValues(req, res, next) {
-  const body = req.body.data ?? req.body;
+function validateValues(_req, res, next) {
+  const body = res.locals.body;
 
   const { reservation_date, reservation_time, people } = body;
 
-  if (!Number.isInteger(people) || people < 1) {
+  if (!Number.isInteger(people) || !(people > 0)) {
     return next({
       status: 400,
-      message: 'Number of people must be an integer and greater than zero',
+      message: 'people must be an integer that is greater than zero',
     });
   }
+
+  // if (people < 1) {
+  //   return next({
+  //     status: 400,
+  //     message: 'people must be an integer that is greater than zero',
+  //   });
+  // }
 
   if (!timeIsValid(reservation_time)) {
     return next({
@@ -83,6 +89,26 @@ function validateValues(req, res, next) {
       message: 'reservation_date must be a valid date',
     });
   }
+
+  if (dateIsTuesday(reservation_date)) {
+    return next({
+      status: 400,
+      message: "'reservation_date' field: restaurant is closed on tuesday",
+    });
+  }
+
+  if (!isDateInFuture(reservation_date, reservation_time)) {
+    return next({
+      status: 400,
+      message: `You are attempting to submit a reservation in the past. Only future reservations are allowed`,
+    });
+  }
+  next();
+}
+
+function passDownBodyToPipeline(req, res, next) {
+  const body = req.body.data ?? req.body;
+  res.locals.body = body;
   next();
 }
 
@@ -94,9 +120,10 @@ async function list(req, res) {
   });
 }
 
-async function create(req, res) {
-  console.log(req.body);
-  const createdReservation = await service.createReservation(req.body);
+async function create(_req, res) {
+  const body = res.locals.body;
+  console.log(typeof body.people);
+  const createdReservation = await service.createReservation(body);
 
   res.status(201).json({ data: createdReservation });
 }
@@ -104,6 +131,7 @@ async function create(req, res) {
 module.exports = {
   list: asyncErrorBoundary(list),
   create: [
+    passDownBodyToPipeline,
     hasOnlyValidProperties,
     hasRequiredProperties,
     validateValues,
