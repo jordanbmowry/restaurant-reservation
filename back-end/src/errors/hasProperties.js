@@ -1,6 +1,6 @@
 function hasProperties(...properties) {
-  return function (req, _res, next) {
-    const body = req.body.data ?? req.body;
+  return function (_req, res, next) {
+    const body = res.locals.body;
 
     try {
       properties.forEach((property) => {
