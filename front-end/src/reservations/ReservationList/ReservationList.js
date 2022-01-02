@@ -11,7 +11,7 @@ export default function ReservationList({ reservations }) {
   ));
 
   return (
-    <div className='card-deck'>
+    <div className='card-deck grid-wrapper'>
       {reservations.length ? mappedReservations : noReservationsMessage}
     </div>
   );

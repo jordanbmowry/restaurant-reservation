@@ -41,14 +41,13 @@ export default function ReservationsForm({ method }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     method === 'POST' ? submitNew() : submitEdit();
-
-    setFormData({ ...initialFormState });
   };
 
   const submitNew = async () => {
     const controller = new AbortController();
     try {
       await post('/reservations', formData, controller);
+      setFormData({ ...initialFormState });
       history.push(`/dashboard?date=${formData.reservation_date}`);
     } catch (error) {
       setError(error);

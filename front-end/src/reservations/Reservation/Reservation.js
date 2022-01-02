@@ -1,4 +1,5 @@
 import React from 'react';
+import SeatButton from '../SeatButton/SeatButton';
 
 export default function Reservation({ reservation }) {
   const {
@@ -18,6 +19,9 @@ export default function Reservation({ reservation }) {
         <h5 className='card-title'>{`${first_name} ${last_name}`}</h5>
         <h6 className='card-text'>Party of: {people}</h6>
         <p className='card-text'>{mobile_number}</p>
+        <div className='text-center'>
+          <SeatButton reservation_id={reservation_id} />
+        </div>
       </div>
     </div>
   );
