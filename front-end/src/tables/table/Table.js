@@ -7,6 +7,8 @@ export default function Table(props) {
 
   const classNames1 = clsx(
     { card: true, 'border-dark': occupied, 'border-primary': !occupied },
+    'px-4',
+    'py-2',
     props.className
   );
 
@@ -17,14 +19,14 @@ export default function Table(props) {
 
   return (
     <div className={classNames1}>
-      <div className='card-body'>
-        <h5 className='card-title'>Table: {table_name}</h5>
-        <h6 className='card-subtitle mb-2'>
+      <div className='card-body text-center'>
+        <h5 className='card-title my-2'>Table: {table_name}</h5>
+        <h6 className='card-subtitle my-2'>
           <span data-table-id-status={`${table_id}`} className={classNames2}>
             Status: {occupied ? 'occupied' : 'free'}
           </span>
         </h6>
-        <p className={`card-text ${classNames2}`}>Capacity: {capacity}</p>
+        <p className={`card-text my-2 ${classNames2}`}>Capacity: {capacity}</p>
       </div>
     </div>
   );
