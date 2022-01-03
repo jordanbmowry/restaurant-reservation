@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import useFetch, { listReservations } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import useQuery from '../utils/useQuery.js';
@@ -60,10 +60,10 @@ function Dashboard({ date }) {
   const displayDate = formatDisplayDate(date);
   return (
     <main>
-      <h1>Dashboard</h1>
+      <h1 className='my-4'>Dashboard</h1>
       <CurrentTime />
-      <div className='w-100 p-2 bg-dark mt-4'></div>
-      <h3 className='mb-0'>Reservations for:</h3>
+      <div className='w-100 p-2 bg-dark my-4'></div>
+      <h3 className='my-4'>Reservations for:</h3>
       <h4>{displayDate}</h4>
       <div className='d-md-flex mb-3'></div>
       <ErrorAlert error={reservationsError} />
@@ -73,7 +73,7 @@ function Dashboard({ date }) {
         <ReservationList reservations={reservations} />
       )}
       <div className='w-100 p-2 bg-dark mt-4'></div>
-      <h3 className='mb-0'>Tables:</h3>
+      <h3 className='my-4'>Tables:</h3>
       <ErrorAlert error={tablesError} />
       {tablesIsLoading ? <Loader /> : <TablesList tables={tables} />}
     </main>
