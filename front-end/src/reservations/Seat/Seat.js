@@ -28,19 +28,21 @@ export default function Seat() {
   const [formData, setFormData] = useState({});
 
   // load all tables
+
   useEffect(() => {
     const controller = new AbortController();
-    async function loadAllTables() {
+    async function loadTables() {
       try {
-        const tables = await get('/tables', controller);
-        setTables(tables);
+        const response = await get('/tables', controller);
+        const { data } = response;
+        setTables(data);
       } catch (error) {
         setTablesError(error);
       } finally {
         setAreTablesLoading(false);
       }
     }
-    loadAllTables();
+    loadTables();
     return () => controller.abort();
   }, []);
 
@@ -104,7 +106,7 @@ export default function Seat() {
       <ErrorAlert error={reservationError} />
       <Form handleSubmit={handleSubmit}>
         <FormSelect name='tables' onChange={handleChange} required={true}>
-          <option defaultValue>Table: # - Capacity: #</option>
+          <option defaultValue>Table Number - Capacity Amount</option>
           {mappedOptions}
         </FormSelect>
         <div className='text-center'>
