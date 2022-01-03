@@ -1,8 +1,6 @@
 import React from 'react';
-import Loader from '../../layout/Loader';
 import Table from '../table/Table';
 import { Link } from 'react-router-dom';
-import { table } from '../../../../back-end/src/db/connection';
 
 export default function TablesList({ tables }) {
   const noTablesMessage = (
