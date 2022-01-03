@@ -11,8 +11,10 @@ export default function TablesList({ tables }) {
       </Link>
     </p>
   );
-
-  const mappedTables = tables.map((table) => <Table table={table} />);
+  console.log(tables);
+  const mappedTables = tables.map((table) => (
+    <Table key={table.table_id} table={table} />
+  ));
 
   return tables ? (
     <div className='grid-wrapper'>{mappedTables}</div>

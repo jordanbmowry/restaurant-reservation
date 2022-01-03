@@ -7,7 +7,12 @@ export default function FormSelect(props) {
     <div className='col-auto'>
       <div className='form-group form-row'>
         <label htmlFor={id}>{label}</label>
-        <select name={name} className='form-select' id={id} {...rest}>
+        <select
+          name={name}
+          className='form-select form-select-lg mb-3'
+          id={id}
+          {...rest}
+        >
           {children}
         </select>
       </div>
