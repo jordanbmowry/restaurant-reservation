@@ -14,7 +14,12 @@ function createReservation(reservation) {
     .then((first) => first[0]);
 }
 
+function readIndividualReservation(id) {
+  return knex('reservations').select('*').where({ reservation_id: id }).first();
+}
+
 module.exports = {
   listReservationByDate,
-  createReservation,
+  create: createReservation,
+  read: readIndividualReservation,
 };

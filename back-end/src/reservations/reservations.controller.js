@@ -3,7 +3,7 @@ const isPast = require('date-fns/isPast');
 const service = require('./reservations.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 const validator = require('validator');
-// Validation Middleware
+// Validation ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 const hasRequiredProperties = hasProperties(
   'first_name',
   'last_name',
@@ -113,6 +113,19 @@ function validateValues(_req, res, next) {
   next();
 }
 
+async function reservationExists(req, res, next) {
+  const { reservation_id } = req.params;
+  const response = await service.read(reservation_id);
+
+  if (!response) {
+    return next({
+      status: 400,
+      message: `Reservation with ${reservation_id} does not exist`,
+    });
+  }
+  next();
+}
+// Validation ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 function passDownBodyToPipeline(req, res, next) {
   const body = req.body.data ?? req.body;
   res.locals.body = body;
@@ -130,9 +143,15 @@ async function list(req, res) {
 async function create(_req, res) {
   const body = res.locals.body;
   console.log(typeof body.people);
-  const createdReservation = await service.createReservation(body);
+  const createdReservation = await service.create(body);
 
   res.status(201).json({ data: createdReservation });
+}
+
+async function read(req, res, _next) {
+  const { reservation_id } = req.params;
+  const reservation = await service.read(reservation_id);
+  res.json({ data: reservation });
 }
 
 module.exports = {
@@ -144,4 +163,5 @@ module.exports = {
     validateValues,
     asyncErrorBoundary(create),
   ],
+  read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
 };
