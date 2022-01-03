@@ -6,6 +6,7 @@ import { formatDisplayDate } from '../utils/date-time';
 import Loader from '../layout/Loader';
 import CurrentTime from '../layout/CurrentTime';
 import ReservationList from '../reservations/ReservationList/ReservationList';
+import TablesList from '../tables/list/TablesList';
 
 /**
  * Defines the dashboard page.
@@ -21,10 +22,29 @@ function Dashboard({ date }) {
 
   const { get } = useFetch();
   const [reservations, setReservations] = useState([]);
+  const [tables, setTables] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [tablesError, setTablesError] = useState(null);
+  const [reservationsIsLoading, setReservationsIsLoading] = useState(true);
+  const [tablesIsLoading, setTablesIsLoading] = useState(true);
 
   useEffect(loadDashboard, [date]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    async function loadTables() {
+      try {
+        const tables = await get('/tables', controller);
+        setTables(tables);
+      } catch (error) {
+        setTablesError(error);
+      } finally {
+        setTablesIsLoading(false);
+      }
+    }
+    loadTables();
+    return () => controller.abort();
+  }, [get]);
 
   function loadDashboard() {
     const abortController = new AbortController();
@@ -32,12 +52,8 @@ function Dashboard({ date }) {
     listReservations({ date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError)
-      .finally(() => setIsLoading(false));
+      .finally(() => setReservationsIsLoading(false));
     return () => abortController.abort();
-  }
-
-  function loadTables() {
-    // toDo
   }
 
   const displayDate = formatDisplayDate(date);
@@ -50,9 +66,15 @@ function Dashboard({ date }) {
       <h4>{displayDate}</h4>
       <div className='d-md-flex mb-3'></div>
       <ErrorAlert error={reservationsError} />
-      {isLoading ? <Loader /> : <ReservationList reservations={reservations} />}
+      {reservationsIsLoading ? (
+        <Loader />
+      ) : (
+        <ReservationList reservations={reservations} />
+      )}
       <div className='w-100 p-2 bg-dark mt-4'></div>
       <h3 className='mb-0'>Tables:</h3>
+      <ErrorAlert error={tablesError} />
+      {tablesIsLoading ? <Loader /> : <TablesList tables={tables} />}
     </main>
   );
 }
