@@ -55,6 +55,7 @@ export default function Seat() {
           `reservations/${reservation_id}`,
           controller
         );
+        console.log(reservation);
         const formattedTime = formatReservationTime(reservation);
         const formattedReservation = formatReservationDate(formattedTime);
         setReservation(formattedReservation);
