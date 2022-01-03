@@ -34,8 +34,9 @@ function Dashboard({ date }) {
     const controller = new AbortController();
     async function loadTables() {
       try {
-        const tables = await get('/tables', controller);
-        setTables(tables);
+        const response = await get('/tables', controller);
+        const { data } = response;
+        setTables(data);
       } catch (error) {
         setTablesError(error);
       } finally {
@@ -44,7 +45,7 @@ function Dashboard({ date }) {
     }
     loadTables();
     return () => controller.abort();
-  }, [get]);
+  }, []);
 
   function loadDashboard() {
     const abortController = new AbortController();
