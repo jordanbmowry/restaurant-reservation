@@ -48,7 +48,7 @@ export default function NewTable() {
 
   return (
     <section>
-      <Form>
+      <Form handleSubmit={submitNewTable}>
         <FormInput
           name='table_name'
           minLength='2'

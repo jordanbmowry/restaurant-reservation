@@ -81,6 +81,7 @@ export default function useFetch() {
           resolve(data);
         })
         .catch((error) => {
+          console.log(error);
           if (error.name !== 'AbortError') {
             reject({ message: error.error });
           }
@@ -91,7 +92,7 @@ export default function useFetch() {
   function post(url, body, abortController) {
     return new Promise((resolve, reject) => {
       fetch(API_BASE_URL + url, {
-        method: 'post',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -117,23 +118,25 @@ export default function useFetch() {
     return new Promise((resolve, reject) => {
       fetch(API_BASE_URL + url, {
         method: 'PUT',
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(body),
         signal: abortController.signal,
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
+            console.log(data);
             reject({ message: data.error });
           }
-
           resolve(data);
         })
         .catch((error) => {
+          console.log(error);
           reject({ message: error.error });
         });
     });
   }
-
   return { get, post, put };
 }

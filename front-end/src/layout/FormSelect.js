@@ -9,7 +9,7 @@ export default function FormSelect(props) {
         <label htmlFor={id}>{label}</label>
         <select
           name={name}
-          className='form-select form-select-lg mb-3'
+          className='form-select form-select-lg my-3'
           id={id}
           {...rest}
         >

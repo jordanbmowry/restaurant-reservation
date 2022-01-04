@@ -2,6 +2,7 @@ const hasProperties = require('../errors/hasProperties');
 const isPast = require('date-fns/isPast');
 const service = require('./reservations.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
+const hasOnlyValidProperties = require('../errors/hasOnlyValidProperties');
 const validator = require('validator');
 // Validation ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 const hasRequiredProperties = hasProperties(
@@ -25,20 +26,8 @@ const VALID_PROPERTIES = [
   'updated_at',
 ];
 
-function hasOnlyValidProperties(_req, res, next) {
-  const body = res.locals.body;
-
-  const invalidFields = Object.keys(body).filter(
-    (field) => !VALID_PROPERTIES.includes(field)
-  );
-  if (invalidFields.length) {
-    return next({
-      status: 400,
-      message: `Invalid field(s): ${invalidFields.join(', ')}`,
-    });
-  }
-  next();
-}
+const reservationHasOnlyValidProperties =
+  hasOnlyValidProperties(VALID_PROPERTIES);
 
 function dateIsTuesday(dateString) {
   const date = new Date(dateString);
@@ -158,7 +147,7 @@ module.exports = {
   list: asyncErrorBoundary(list),
   create: [
     passDownBodyToPipeline,
-    hasOnlyValidProperties,
+    reservationHasOnlyValidProperties,
     hasRequiredProperties,
     validateValues,
     asyncErrorBoundary(create),

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import useFetch, { listReservations } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import useQuery from '../utils/useQuery.js';
@@ -47,6 +47,7 @@ function Dashboard({ date }) {
     return () => controller.abort();
   }, []);
 
+  console.log(tables);
   function loadDashboard() {
     const abortController = new AbortController();
     setReservationsError(null);

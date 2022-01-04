@@ -11,7 +11,6 @@ export default function TablesList({ tables }) {
       </Link>
     </p>
   );
-  console.log(tables);
   const mappedTables = tables.map((table) => (
     <Table key={table.table_id} table={table} />
   ));

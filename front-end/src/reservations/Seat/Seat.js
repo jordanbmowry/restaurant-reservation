@@ -23,9 +23,10 @@ export default function Seat() {
   const [tablesError, setTablesError] = useState(null);
 
   const [reservation, setReservation] = useState([]);
-  const [reservationError, setReservationError] = useState([]);
+  const [reservationError, setReservationError] = useState(null);
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ table_id: null });
+  console.log(formData);
 
   // load all tables
 
@@ -49,36 +50,39 @@ export default function Seat() {
   // load reservation
   useEffect(() => {
     const controller = new AbortController();
-    async function loadReservations() {
+    async function loadReservation() {
       try {
-        const reservation = await get(
-          `reservations/${reservation_id}`,
+        const { data } = await get(
+          `/reservations/${reservation_id}`,
           controller
         );
-        console.log(reservation);
-        const formattedTime = formatReservationTime(reservation);
-        const formattedReservation = formatReservationDate(formattedTime);
-        setReservation(formattedReservation);
+        setReservation(data);
       } catch (error) {
+        console.log(error);
         setReservationError(error);
       } finally {
         setIsReservationLoading(false);
       }
     }
-    loadReservations();
+    loadReservation();
     return () => controller.abort();
   }, [reservation_id]);
 
   const handleSubmit = async (event) => {
     const controller = new AbortController();
+    console.log(formData.table_id);
     try {
       event.preventDefault();
-      await put(`/tables/${formData.table_id}/seat`, {
-        data: { reservation_id },
-        controller,
-      });
+      await put(
+        `/tables/${formData.table_id}/seat`,
+        {
+          data: { reservation_id },
+        },
+        controller
+      );
       history.push('/dashboard');
     } catch (error) {
+      console.error(error);
       setAssignTableError(error);
     } finally {
       return () => controller.abort();
@@ -89,24 +93,31 @@ export default function Seat() {
     setFormData({ [event.target.name]: event.target.value });
   };
 
-  const handleCancel = (event) => {
+  const handleCancel = () => {
     setFormData({});
     history.goBack();
   };
+  const { reservation_date } = formatReservationDate(reservation);
+  const { reservation_time } = formatReservationTime(reservation);
 
   const mappedOptions = tables.map(({ table_id, table_name, capacity }) => (
-    <SelectOption key={table_id} id={table_name}>
+    <SelectOption key={table_id} id={table_name} value={table_id}>
       {table_name} - {capacity}
     </SelectOption>
   ));
-
+  if (areTablesLoading && isReservationLoading) return <Loader />;
   return (
     <section>
-      <h1>Assign Party of {reservation.people} to a table.</h1>
-      <ErrorAlert error={tablesError} />
-      <ErrorAlert error={reservationError} />
+      <h1>
+        Assign <span className='text-info'>{reservation.first_name}</span>{' '}
+        <span className='text-info'>{reservation.last_name}</span> party of{' '}
+        <span className='text-info'>{reservation.people}</span> to a table.
+      </h1>
+      <h2>
+        Reservation scheduled for {reservation_date} at {reservation_time}.
+      </h2>
       <Form handleSubmit={handleSubmit}>
-        <FormSelect name='tables' onChange={handleChange} required={true}>
+        <FormSelect name='table_id' onChange={handleChange} required={true}>
           <option defaultValue>Table Number - Capacity Amount</option>
           {mappedOptions}
         </FormSelect>
@@ -124,6 +135,9 @@ export default function Seat() {
           </Button>
         </div>
       </Form>
+      <ErrorAlert error={tablesError} />
+      <ErrorAlert error={reservationError} />
+      <ErrorAlert error={assignTableError} />
     </section>
   );
 }

@@ -6,7 +6,7 @@ export default function Table(props) {
   const occupied = props.table.reservation_id;
 
   const classNames1 = clsx(
-    { card: true, 'border-dark': occupied, 'border-primary': !occupied },
+    { card: true, 'border-success': occupied, 'border-primary': !occupied },
     'px-4',
     'py-2',
     props.className
@@ -26,7 +26,7 @@ export default function Table(props) {
             Status: {occupied ? 'occupied' : 'free'}
           </span>
         </h6>
-        <p className={`card-text my-2 ${classNames2}`}>Capacity: {capacity}</p>
+        <p className={`card-text my-2`}>Capacity: {capacity}</p>
       </div>
     </div>
   );
