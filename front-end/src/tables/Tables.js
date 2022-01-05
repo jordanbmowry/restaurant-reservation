@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import NotFound from '../layout/NotFound';
-import NewTable from './new/NewTable';
+import NewTable from './New/NewTable';
 
 export default function Tables() {
   const { path } = useRouteMatch();

@@ -6,7 +6,7 @@ import { formatDisplayDate } from '../utils/date-time';
 import Loader from '../layout/Loader';
 import CurrentTime from '../layout/CurrentTime';
 import ReservationList from '../reservations/ReservationList/ReservationList';
-import TablesList from '../tables/list/TablesList';
+import TablesList from '../tables/TablesList/TablesList';
 
 /**
  * Defines the dashboard page.

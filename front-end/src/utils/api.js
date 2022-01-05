@@ -75,6 +75,7 @@ export default function useFetch() {
       fetch(API_BASE_URL + url, { signal: abortController.signal })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           if (data.error) {
             reject({ message: data.error });
           }
@@ -138,5 +139,29 @@ export default function useFetch() {
         });
     });
   }
-  return { get, post, put };
+
+  function destroy(url, abortController) {
+    return new Promise((resolve, reject) => {
+      fetch(API_BASE_URL + url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: abortController.signal,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            console.log(data);
+            reject({ message: data.error });
+          }
+          resolve(data);
+        })
+        .catch((error) => {
+          console.log(error);
+          reject({ message: error.error });
+        });
+    });
+  }
+  return { get, post, put, destroy };
 }

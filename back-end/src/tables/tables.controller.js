@@ -38,7 +38,7 @@ async function tableExists(req, res, next) {
   const response = await service.read(table_id);
   if (!response) {
     next({
-      status: 400,
+      status: 404,
       message: `Table with table_id: ${table_id} does not exist`,
     });
   }
@@ -101,9 +101,22 @@ function tableIsNotOccupied(req, res, next) {
     table: { reservation_id, table_id },
   } = res.locals;
   if (reservation_id) {
-    next({
+    return next({
       status: 400,
       message: `Table with table_id ${table_id} is currently occupied`,
+    });
+  }
+  next();
+}
+
+function tableIsOccupied(req, res, next) {
+  const {
+    table: { reservation_id, table_id },
+  } = res.locals;
+  if (!reservation_id) {
+    return next({
+      status: 400,
+      message: `Table with table_id ${table_id} is not occupied`,
     });
   }
   next();
@@ -116,6 +129,7 @@ function occupyTable(req, res, next) {
   } = res.locals;
 
   table.reservation_id = reservation_id;
+  res.locals.reservation_id = reservation_id;
   res.locals.status = 'seated';
   if (table.reservation_id) {
     return next();
@@ -123,6 +137,20 @@ function occupyTable(req, res, next) {
   next({
     status: 400,
     message: `Table with id: ${table.table_id} could not be assigned reservation id ${reservation_id}  for some reason. Please contact backend engineer for assistance`,
+  });
+}
+
+function emptyTable(req, res, next) {
+  const { table } = res.locals;
+  res.locals.reservation_id = table.reservation_id;
+  table.reservation_id = null;
+  res.locals.status = 'finished';
+  if (!table.reservation_id) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: `Table with id: ${table.table_id} could not remove reservation id ${table.reservation_id}  for some reason. Please contact backend engineer for assistance`,
   });
 }
 
@@ -146,11 +174,8 @@ async function create(req, res, _next) {
 }
 
 async function update(req, res, next) {
-  const {
-    table,
-    status,
-    body: { reservation_id },
-  } = res.locals;
+  const { table, status, reservation_id } = res.locals;
+  console.log('test');
   const data = await service.update(table, reservation_id, status);
   res.json({ data });
 }
@@ -161,7 +186,7 @@ module.exports = {
     passDownBodyToPipeline,
     hasReservationId,
     asyncErrorBoundary(reservationExists),
-    tableExists,
+    asyncErrorBoundary(tableExists),
     reservationHasBookedStatus,
     tableIsLargeEnoughForParty,
     tableIsNotOccupied,
@@ -174,5 +199,11 @@ module.exports = {
     tableHasRequiredProperties,
     bodyHasValidValues,
     asyncErrorBoundary(create),
+  ],
+  deleteReservationId: [
+    asyncErrorBoundary(tableExists),
+    tableIsOccupied,
+    emptyTable,
+    asyncErrorBoundary(update),
   ],
 };
