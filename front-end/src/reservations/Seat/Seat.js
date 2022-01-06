@@ -26,7 +26,6 @@ export default function Seat() {
   const [reservationError, setReservationError] = useState(null);
 
   const [formData, setFormData] = useState({ table_id: null });
-  console.log(formData);
 
   // load all tables
 
@@ -58,7 +57,6 @@ export default function Seat() {
         );
         setReservation(data);
       } catch (error) {
-        console.log(error);
         setReservationError(error);
       } finally {
         setIsReservationLoading(false);
@@ -70,7 +68,6 @@ export default function Seat() {
 
   const handleSubmit = async (event) => {
     const controller = new AbortController();
-    console.log(formData.table_id);
     try {
       event.preventDefault();
       await put(
@@ -82,7 +79,6 @@ export default function Seat() {
       );
       history.push('/dashboard');
     } catch (error) {
-      console.error(error);
       setAssignTableError(error);
     } finally {
       return () => controller.abort();

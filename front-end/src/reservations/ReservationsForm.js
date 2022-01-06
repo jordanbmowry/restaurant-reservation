@@ -11,7 +11,6 @@ export default function ReservationsForm({ method }) {
   const { post } = useFetch();
   const history = useHistory();
   const [error, setError] = useState(null);
-  console.log(error);
 
   const initialFormState = {
     first_name: '',

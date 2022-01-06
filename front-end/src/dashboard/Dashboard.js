@@ -47,7 +47,6 @@ function Dashboard({ date }) {
     return () => controller.abort();
   }, []);
 
-  console.log(tables);
   function loadDashboard() {
     const abortController = new AbortController();
     setReservationsError(null);
