@@ -6,9 +6,8 @@ import { useHistory } from 'react-router-dom';
 import ErrorAlert from '../../layout/ErrorAlert';
 
 export default function Table(props) {
-  const { table_name, capacity, table_id, status } = props.table;
+  const { table_name, capacity, table_id } = props.table;
   const occupied = props.table.reservation_id;
-
   const history = useHistory();
   const { destroy } = useFetch();
   const [error, setError] = useState(null);
