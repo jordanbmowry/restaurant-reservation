@@ -46,7 +46,7 @@ async function tableExists(req, res, next) {
   next();
 }
 
-function reservationHasBookedStatus(req, res, next) {
+function reservationHasBookedStatus(_req, res, next) {
   const { reservation } = res.locals;
   if (reservation.status === 'booked') {
     return next();
@@ -62,7 +62,7 @@ function capacityIsValid(capacity) {
   return Number.isInteger(capacity) && capacity > 0;
 }
 
-function bodyHasValidValues(req, res, next) {
+function bodyHasValidValues(_req, res, next) {
   const { capacity, table_name } = res.locals.body;
 
   if (!capacityIsValid(capacity)) {
@@ -96,7 +96,7 @@ function tableIsLargeEnoughForParty(_req, res, next) {
   next();
 }
 
-function tableIsNotOccupied(req, res, next) {
+function tableIsNotOccupied(_req, res, next) {
   const {
     table: { reservation_id, table_id },
   } = res.locals;
@@ -109,7 +109,7 @@ function tableIsNotOccupied(req, res, next) {
   next();
 }
 
-function tableIsOccupied(req, res, next) {
+function tableIsOccupied(_req, res, next) {
   const {
     table: { reservation_id, table_id },
   } = res.locals;
@@ -122,7 +122,7 @@ function tableIsOccupied(req, res, next) {
   next();
 }
 
-function occupyTable(req, res, next) {
+function occupyTable(_req, res, next) {
   const {
     table,
     body: { reservation_id },
@@ -140,7 +140,7 @@ function occupyTable(req, res, next) {
   });
 }
 
-function emptyTable(req, res, next) {
+function emptyTable(_req, res, next) {
   const { table } = res.locals;
   res.locals.reservation_id = table.reservation_id;
   table.reservation_id = null;
@@ -166,16 +166,15 @@ async function list(_req, res, _next) {
   res.json({ data: tables });
 }
 
-async function create(req, res, _next) {
+async function create(_req, res, _next) {
   const { body } = res.locals;
 
   const response = await service.create(body);
   res.status(201).json({ data: response });
 }
 
-async function update(req, res, next) {
+async function update(_req, res, _next) {
   const { table, status, reservation_id } = res.locals;
-  console.log('test');
   const data = await service.update(table, reservation_id, status);
   res.json({ data });
 }

@@ -19,8 +19,16 @@ function readIndividualReservation(id) {
   return knex('reservations').select('*').where({ reservation_id: id }).first();
 }
 
+function updateReservationStatus(id, status) {
+  return knex('reservations')
+    .where({ reservation_id: id })
+    .update({ status }, '*')
+    .then((first) => first[0]);
+}
+
 module.exports = {
   listReservationByDate,
   create: createReservation,
   read: readIndividualReservation,
+  update: updateReservationStatus,
 };
