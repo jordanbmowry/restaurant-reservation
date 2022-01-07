@@ -13,15 +13,15 @@ export default function Table(props) {
   const [error, setError] = useState(null);
 
   const classNames1 = clsx(
-    { card: true, 'border-success': occupied, 'border-primary': !occupied },
+    { card: true, 'border-danger': occupied, 'border-success': !occupied },
     'px-4',
     'py-2',
     props.className
   );
 
   const classNames2 = clsx({
-    'text-success': occupied,
-    'text-secondary': !occupied,
+    'text-danger': occupied,
+    'text-success': !occupied,
   });
 
   const displayConditions = clsx({

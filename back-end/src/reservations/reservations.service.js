@@ -8,6 +8,16 @@ function listReservationByDate(date) {
     .orderBy('reservation_time');
 }
 
+function listReservationByMobileNumber(mobile_number) {
+  console.log({ mobile_number });
+  return knex('reservations')
+    .whereRaw(
+      "translate(mobile_number, '() -', '') like ?",
+      `%${mobile_number.replace(/\D/g, '')}%`
+    )
+    .orderBy('reservation_date');
+}
+
 function createReservation(reservation) {
   return knex('reservations')
     .insert(reservation)
@@ -27,6 +37,7 @@ function updateReservationStatus(id, status) {
 }
 
 module.exports = {
+  listReservationByMobileNumber,
   listReservationByDate,
   create: createReservation,
   read: readIndividualReservation,
