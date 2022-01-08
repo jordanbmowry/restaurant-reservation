@@ -58,8 +58,8 @@ export default function Search() {
           required
         />
         <div className='text-center'>
-          <Button type='submit' btnPrimary className='ml-2'>
-            Search <i className='fas fa-search'></i>
+          <Button type='submit' btnPrimary className='ml-2 d-inline-block'>
+            Find <i className='fas fa-search'></i>
           </Button>
         </div>
       </Form>

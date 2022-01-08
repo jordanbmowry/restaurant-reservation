@@ -8,6 +8,7 @@ export default function FormInput(props) {
       <div className='form-group form-row'>
         <label htmlFor={id}>{label}</label>
         <input className='form-control' id={id} type={type} {...rest} />
+        {children}
       </div>
     </div>
   );
