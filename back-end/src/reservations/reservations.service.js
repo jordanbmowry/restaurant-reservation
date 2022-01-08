@@ -36,10 +36,18 @@ function updateReservationStatus(id, status) {
     .then((first) => first[0]);
 }
 
+function updateReservation(id, updatedReservation) {
+  return knex('reservations')
+    .where({ reservation_id: id })
+    .update(updatedReservation, '*')
+    .then((first) => first[0]);
+}
+
 module.exports = {
   listReservationByMobileNumber,
   listReservationByDate,
   create: createReservation,
   read: readIndividualReservation,
-  update: updateReservationStatus,
+  updateStatus: updateReservationStatus,
+  update: updateReservation,
 };
