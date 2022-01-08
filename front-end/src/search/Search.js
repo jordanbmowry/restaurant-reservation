@@ -26,7 +26,7 @@ export default function Search() {
     const controller = new AbortController();
     try {
       const response = await get(
-        `/reservations?mobile_phone=${mobileNumber}`,
+        `/reservations?mobile_number=${mobileNumber}`,
         controller
       );
       setSearchedReservations([...response.data]);

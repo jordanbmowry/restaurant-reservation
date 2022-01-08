@@ -157,18 +157,15 @@ function passDownBodyToPipeline(req, res, next) {
 }
 
 async function list(req, res) {
-  const { date, mobile_phone } = req.query;
+  const { date, mobile_number } = req.query;
 
   let data = null;
   if (date) {
     data = await service.listReservationByDate(date);
+  } else if (mobile_number) {
+    data = await service.listReservationByMobileNumber(mobile_number);
   }
-  if (mobile_phone) {
-    data = await service.listReservationByMobileNumber(mobile_phone);
-  }
-  res.json({
-    data,
-  });
+  res.json({ data });
 }
 
 async function create(_req, res) {
