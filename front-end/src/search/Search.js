@@ -13,9 +13,8 @@ export default function Search() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [resultsMessage, setResultsMessage] = useState('');
-  console.log(searchedReservations);
   const { get } = useFetch();
-  console.log(searchedReservations);
+
   const handleChange = (event) => {
     setMobileNumber(event.target.value);
   };
@@ -43,9 +42,7 @@ export default function Search() {
 
   return (
     <>
-      <h1>
-        Search Reservations by Phone Number <i className='fas fa-phone'></i>
-      </h1>
+      <h1>Search Reservations</h1>
       <Form handleSubmit={handleSubmit} className='my-3'>
         <FormInput
           name='mobile_number'
