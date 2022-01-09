@@ -47,8 +47,5 @@
   },
   "keywords": [],
   "author": "Thinkful, Inc.",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "clsx": "^1.1.1"
-  }
+  "license": "UNLICENSED"
 }
