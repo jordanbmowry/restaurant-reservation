@@ -75,7 +75,6 @@ export default function useFetch() {
       fetch(API_BASE_URL + url, { signal: abortController.signal })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
           if (data.error) {
             reject({ message: data.error });
           }
@@ -103,7 +102,6 @@ export default function useFetch() {
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
-            console.log(data);
             reject({ message: data.error });
           }
           resolve(data);
@@ -128,7 +126,6 @@ export default function useFetch() {
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
-            console.log(data);
             reject({ message: data.error });
           }
           resolve(data);
@@ -152,7 +149,6 @@ export default function useFetch() {
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
-            console.log(data);
             reject({ message: data.error });
           }
           resolve(data);

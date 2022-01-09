@@ -45,7 +45,11 @@ export default function ReservationsForm({ method }) {
   }, [reservation_id, method]);
 
   const handleChange = ({ target }) => {
-    if (target.name === 'people' && typeof target.value === 'string') {
+    if (
+      target.name === 'people' &&
+      typeof target.value === 'string' &&
+      target.value !== ''
+    ) {
       setFormData({
         ...formData,
         [target.name]: Number.parseInt(target.value, 10),
