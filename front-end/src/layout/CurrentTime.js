@@ -20,12 +20,18 @@ export default function CurrentTime() {
 
   return (
     <>
-      <h2>
-        Current Time: <i className='fas fa-clock'> </i>{' '}
-        <span style={{ color: '#fff' }} className='badge bg-secondary'>
+      <h3 className='my-4 font-weight-bold'>
+        Current Time:{' '}
+        <i style={{ fontSize: '2rem' }} className='fas fa-clock'>
+          {' '}
+        </i>{' '}
+        <span
+          style={{ color: '#fff', fontSize: '2rem' }}
+          className='badge bg-secondary'
+        >
           {timeFormatted}
         </span>
-      </h2>
+      </h3>
     </>
   );
 }
