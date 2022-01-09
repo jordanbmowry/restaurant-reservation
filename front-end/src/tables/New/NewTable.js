@@ -48,6 +48,7 @@ export default function NewTable() {
 
   return (
     <section>
+      <h1>New Table</h1>
       <Form handleSubmit={submitNewTable}>
         <FormInput
           name='table_name'
