@@ -3,6 +3,7 @@ import NotFound from '../layout/NotFound';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import New from './New/New';
 import Seat from './Seat/Seat';
+import Edit from './Edit/Edit';
 
 export default function Reservations(props) {
   const { path } = useRouteMatch();
@@ -15,6 +16,9 @@ export default function Reservations(props) {
         </Route>
         <Route path={`${path}/:reservation_id/seat`}>
           <Seat />
+        </Route>
+        <Route path={`${path}/:reservation_id/edit`}>
+          <Edit />
         </Route>
         <Route>
           <NotFound />

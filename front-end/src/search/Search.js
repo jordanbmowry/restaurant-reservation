@@ -44,7 +44,7 @@ export default function Search() {
   return (
     <>
       <h1>
-        Lookup a Reservation by Phone Number <i className='fas fa-phone'></i>
+        Search Reservations by Phone Number <i className='fas fa-phone'></i>
       </h1>
       <Form handleSubmit={handleSubmit} className='my-3'>
         <FormInput
