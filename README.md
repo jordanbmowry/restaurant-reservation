@@ -43,7 +43,9 @@ The application was developed following the user stories supplied by a figurativ
 ![Search Reservations](readme-screenshots/searchReservations.png)
 
 - Search for reservations using a full or partial phone number.
-- A reservation can also be cancelled and the reservation is removed from view on the dashboard.
+  ![hidden Reservations](readme-screenshots/hiddenReservations.png)
+  ![Searched Reservations](readme-screenshots/searchedReservations2.png)
+- A reservation can be cancelled and the reservation is removed from view on the dashboard but can still be searched.
 
 ## Technologies used
 
