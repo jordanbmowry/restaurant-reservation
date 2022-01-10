@@ -9,6 +9,7 @@ import SelectOption from '../../layout/SelectOption';
 import Loader from '../../layout/Loader.js';
 import formatReservationDate from '../../utils/format-reservation-date';
 import formatReservationTime from '../../utils/format-reservation-time.js';
+import { formatDisplayDate } from '../../utils/date-time';
 
 export default function Seat() {
   const [isReservationLoading, setIsReservationLoading] = useState(true);
@@ -105,9 +106,9 @@ export default function Seat() {
   return (
     <section>
       <h1>
-        Assign <span className='text-info'>{reservation.first_name}</span>{' '}
-        <span className='text-info'>{reservation.last_name}</span> party of{' '}
-        <span className='text-info'>{reservation.people}</span> to a table.
+        Seat <span className='text-primary'>{reservation.first_name}</span>{' '}
+        <span className='text-primary'>{reservation.last_name}</span> party of{' '}
+        <span className='text-primary'>{reservation.people}</span>
       </h1>
       <h2>
         Reservation scheduled for {reservation_date} at {reservation_time}.
