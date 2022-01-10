@@ -17,6 +17,7 @@ export default function Reservation({ reservation }) {
     last_name,
     mobile_number,
     reservation_time,
+    reservation_date,
     people,
     status,
   } = reservation;
@@ -56,6 +57,7 @@ export default function Reservation({ reservation }) {
     <div className='card-deck'>
       <div className={`card`} style={{ width: '18rem' }}>
         <div className='card-body text-center'>
+          <p className='card-text'>{reservation_date}</p>
           <p className='card-text'>{reservation_time}</p>
           <h5 className='card-title'>{`${first_name} ${last_name}`}</h5>
           <h6 className='card-text'>Party of: {people}</h6>

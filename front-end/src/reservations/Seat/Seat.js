@@ -9,7 +9,6 @@ import SelectOption from '../../layout/SelectOption';
 import Loader from '../../layout/Loader.js';
 import formatReservationDate from '../../utils/format-reservation-date';
 import formatReservationTime from '../../utils/format-reservation-time.js';
-import { formatDisplayDate } from '../../utils/date-time';
 
 export default function Seat() {
   const [isReservationLoading, setIsReservationLoading] = useState(true);
@@ -96,7 +95,8 @@ export default function Seat() {
   };
   const { reservation_date } = formatReservationDate(reservation);
   const { reservation_time } = formatReservationTime(reservation);
-
+  console.log(reservation.reservation_date);
+  console.log(typeof reservation.reservation_date);
   const mappedOptions = tables.map(({ table_id, table_name, capacity }) => (
     <SelectOption key={table_id} id={table_name} value={table_id}>
       {table_name} - {capacity}
