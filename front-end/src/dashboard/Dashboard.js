@@ -7,6 +7,7 @@ import Loader from '../layout/Loader';
 import CurrentTime from '../layout/CurrentTime';
 import ReservationList from '../reservations/ReservationList/ReservationList';
 import TablesList from '../tables/TablesList/TablesList';
+import DateNavigation from './DateNavigation';
 
 /**
  * Defines the dashboard page.
@@ -59,24 +60,27 @@ function Dashboard({ date }) {
 
   const displayDate = formatDisplayDate(date);
   return (
-    <main>
-      <h1 className='my-4'>Dashboard</h1>
-      <CurrentTime />
-      <div className='w-100 p-2 bg-dark my-4'></div>
-      <h3 className='my-4 font-weight-bold'>Reservations for:</h3>
-      <h4 className='font-weight-light'>{displayDate}</h4>
-      <div className='d-md-flex mb-3'></div>
-      <ErrorAlert error={reservationsError} />
-      {reservationsIsLoading ? (
-        <Loader />
-      ) : (
-        <ReservationList reservations={reservations} />
-      )}
-      <div className='w-100 p-2 bg-dark mt-4'></div>
-      <h3 className='my-4 font-weight-bold'>Tables:</h3>
-      <ErrorAlert error={tablesError} />
-      {tablesIsLoading ? <Loader /> : <TablesList tables={tables} />}
-    </main>
+    <>
+      <DateNavigation date={date} />
+      <h4 className='font-weight-light text-center'>{displayDate}</h4>
+      <main>
+        <h1 className='my-4'>Dashboard</h1>
+        <CurrentTime />
+        <div className='w-100 p-2 bg-dark my-4'></div>
+        <h3 className='my-4 font-weight-bold'>Reservations</h3>
+        <div className='d-md-flex mb-3'></div>
+        <ErrorAlert error={reservationsError} />
+        {reservationsIsLoading ? (
+          <Loader />
+        ) : (
+          <ReservationList reservations={reservations} />
+        )}
+        <div className='w-100 p-2 bg-dark mt-4'></div>
+        <h3 className='my-4 font-weight-bold'>Tables</h3>
+        <ErrorAlert error={tablesError} />
+        {tablesIsLoading ? <Loader /> : <TablesList tables={tables} />}
+      </main>
+    </>
   );
 }
 
