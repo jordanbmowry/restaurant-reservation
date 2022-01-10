@@ -83,7 +83,7 @@ function validateValues(_req, res, next) {
   if (dateIsTuesday(reservation_date)) {
     return next({
       status: 400,
-      message: "'reservation_date' field: restaurant is closed on tuesday",
+      message: 'The restaurant is closed on Tuesdays',
     });
   }
 
@@ -171,7 +171,7 @@ function passDownBodyToPipeline(req, res, next) {
   next();
 }
 
-async function list(req, res) {
+async function list(req, res, next) {
   const { date, mobile_number } = req.query;
 
   let data = null;
@@ -179,6 +179,12 @@ async function list(req, res) {
     data = await service.listReservationByDate(date);
   } else if (mobile_number) {
     data = await service.listReservationByMobileNumber(mobile_number);
+  } else {
+    return next({
+      message:
+        'A query string is required for this route. Please use either "reservations?date=YYYY-MM-DD" or "reservations?mobile_number=<phone number>"',
+      status: 400,
+    });
   }
   res.json({ data });
 }
