@@ -32,7 +32,9 @@ export default function ReservationsForm({ method }) {
             `/reservations/${reservation_id}`,
             controller
           );
-          data.reservation_date = today(data.reservation_date);
+          data.reservation_date = new Date(data.reservation_date)
+            .toISOString()
+            .split('T')[0];
           data.people = parseInt(data.people, 10);
           setFormData(data);
         } catch (error) {
