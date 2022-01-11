@@ -13,40 +13,80 @@ This is a full stack capstone project for [Thinkful's software engineering bootc
 
 The application was developed following the user stories supplied by a figurative manager, using a test driven development process. Users (restaurant employees) of this application can currently:
 
-- Create a new reservation (when a customer calls in) with contact details.
+- ### US-01 Create and list reservations and tables
+  As a restaurant manager
+  I want to create a new reservation when a customer calls
+  so that I know how many customers will arrive at the restaurant on a given day.
 
-![Create reservation error](readme-screenshots/closedOnTuesdays.png)
-![Create reservation error](readme-screenshots/hoursOfOperation.png)
-![Created reservation](readme-screenshots/createdReservation.png)
+![Empty Dashboard](readme-screenshots/emptyDashboard.png)
+![Create reservation John Doe](readme-screenshots/createdReservation1.png)
+![Created reservation Jane Doe](readme-screenshots/createdReservation2.png)
+![Create new table 1](readme-screenshots/createNewTable.png)
+![Create new table 1](readme-screenshots/createdNewTable.png)
+![Created new table 2](readme-screenshots/createNewTable2.png)
+![Created new table 2](readme-screenshots/createdNewTable2.png)
 
-- Multiple validations ensure a reservation can not be made outside of business hours or created in the past.
+- ### US-02 Create reservation on a future, working date
 
-![Create table](readme-screenshots/newTable.png)
-![Created table](readme-screenshots/createdTable.png)
+  As a restaurant manager
+  I only want to allow reservations to be created on a day when we are open
+  so that users do not accidentally create a reservation for days when we are closed.
 
-- Create instances of each table and seating capacity that are available to customers so that reservations can be assigned to a table.when the party arrives at the restaurant.
+  ![Bad reservation 1](readme-screenshots/badReservation1.png)
+  ![Bad reservation 2](readme-screenshots/badReservation2.png)
+  ![Bad reservation 3](readme-screenshots/badReservation3.png)
 
-![Assign reservation to table](readme-screenshots/seatReservation.png)
-![Assigned table](readme-screenshots/seatedReservation.png)
+- ### US-03 Create reservation within eligible timeframe
+  As a restaurant manager
+  I only want to allow reservations to be created during business hours, up to 60 minutes before closing
+  so that users do not accidentally create a reservation for a time we cannot accommodate.
 
-- Assign a reservation to a table to occupy a table at the restaurant.
+![Bad reservation 4](readme-screenshots/US-3.png)
 
-![Finish table confirmation](readme-screenshots/finishTableConfirmation.png)
-![Finished table](readme-screenshots/finishedTable.png)
+- ### US-04 Seat reservation
+  As a restaurant manager,
+  When a customer with an existing reservation arrives at the restaurant
+  I want to seat (assign) their reservation to a specific table
+  so that I know which tables are occupied and free.
 
-- "finish" a table to make that table available for use again and remove the customer from view on the dashboard.
+![Seat reservation](readme-screenshots/seatReservation.png)
+![Seated reservation](readme-screenshots/seatedReservation.png)
 
-  ![New reservation](readme-screenshots/janeDoe.png)
-  ![Edit Reservation](readme-screenshots/editReservation.png)
+- ### US-05 Finish an occupied table
 
-- Edit a reservation with new details if a customer calls back and wants to make a change.
+  As a restaurant manager
+  I want to free up an occupied table when the guests leave
+  so that I can seat new guests at that table.
 
-![Search Reservations](readme-screenshots/searchReservations.png)
+  ![Confirm finish Table](readme-screenshots/confirmFinishReservation.png)
+  ![Finished Table](readme-screenshots/finishedReservation.png)
 
-- Search for reservations using a full or partial phone number.
-  ![hidden Reservations](readme-screenshots/hiddenReservations.png)
-  ![Searched Reservations](readme-screenshots/searchedReservations2.png)
-- A reservation can be cancelled and the reservation is removed from view on the dashboard but can still be searched.
+- ### US-06 Reservation Status
+
+  As a restaurant manager
+  I want a reservation to have a status of either booked, seated, or finished
+  so that I can see which reservation parties are seated, and finished reservations are hidden from the dashboard
+  ![Status in SQL database](readme-screenshots/status.png)
+
+- ### US-07 Search for a reservation by phone number
+
+  As a restaurant manager
+  I want to search for a reservation by phone number (partial or complete)
+  so that I can quickly access a customer's reservation when they call about their reservation.
+
+  ![Searched reservation](readme-screenshots/searchedReservation1.png)
+
+- ### US-08 Change an existing reservation
+
+  As a restaurant manager
+  I want to be able to modify a reservation if a customer calls to change or cancel their reservation
+  so that reservations are accurate and current.
+
+  ![Edit reservation](readme-screenshots/editReservation.png)
+  ![Changed reservation](readme-screenshots/editedReservation.png)
+  ![Confirm cancel reservation](readme-screenshots/confirmCancel.png)
+  ![Confirm cancel reservation](readme-screenshots/canceledReservation.png)
+  ![Search canceled reservation](readme-screenshots/searchedReservation2.png)
 
 ## Technologies used
 
