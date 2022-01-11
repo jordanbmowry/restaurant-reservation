@@ -154,7 +154,7 @@ async function statusIsNotCurrentlyFinished(req, _res, next) {
   next();
 }
 
-function statusIsBooked(req, res, next) {
+function statusIsBooked(_req, res, next) {
   const { status } = res.locals.reservation;
 
   if (status !== 'booked') {
@@ -212,7 +212,7 @@ async function updateStatus(req, res, _next) {
   res.json({ data });
 }
 
-async function update(req, res, next) {
+async function update(_req, res, _next) {
   const { reservation_id } = res.locals.reservation;
   const currentReservation = res.locals.reservation;
   const updatedReservation = res.locals.body;
