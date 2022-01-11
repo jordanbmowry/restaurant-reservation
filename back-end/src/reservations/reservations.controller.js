@@ -37,11 +37,15 @@ function dateIsTuesday(dateString) {
 }
 
 function isDateInFuture(dateString, timeString) {
-  const reservationDate = dateString + 'T' + timeString;
+  // const reservationDate = dateString + 'T' + timeString;
 
-  const utc = new Date(reservationDate).toUTCString();
+  // const utc = new Date(reservationDate).toUTCString();
 
-  return validator.isAfter(utc);
+  // return validator.isAfter(utc);
+  const now = new Date();
+  // creating a date object using a string like:  '2021-10-08T01:21:00'
+  const reservationDate = new Date(dateString + 'T' + timeString);
+  return reservationDate >= now;
 }
 
 //regex for validating time
