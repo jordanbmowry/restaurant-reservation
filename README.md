@@ -18,12 +18,19 @@ The application was developed following the user stories supplied by a figurativ
   I want to create a new reservation when a customer calls
   so that I know how many customers will arrive at the restaurant on a given day.
 
+Dashboard does not display tables if no tables are in the database or reservations if no reservations are created for the date on dashboard.
 ![Empty Dashboard](readme-screenshots/emptyDashboard.png)
+Creating a new reservation "John Doe".
 ![Create reservation John Doe](readme-screenshots/createdReservation1.png)
+Creating a new reservation "Jane Doe".
 ![Created reservation Jane Doe](readme-screenshots/createdReservation2.png)
+Creating a new table "Bar #1" with capacity of 1.
 ![Create new table 1](readme-screenshots/createNewTable.png)
-![Create new table 1](readme-screenshots/createdNewTable.png)
-![Created new table 2](readme-screenshots/createNewTable2.png)
+Dashboard displaying new table "Bar #1".
+![Created new table 1](readme-screenshots/createdNewTable.png)
+Creating a new table "Banquet Room" with capacity of 10.
+![Create new table 2](readme-screenshots/createNewTable2.png)
+Dashboard displaying the two new reservations and two new tables.
 ![Created new table 2](readme-screenshots/createdNewTable2.png)
 
 - ### US-02 Create reservation on a future, working date
@@ -32,8 +39,11 @@ The application was developed following the user stories supplied by a figurativ
   I only want to allow reservations to be created on a day when we are open
   so that users do not accidentally create a reservation for days when we are closed.
 
+  Backend responding with error message for new reservation for 1:30 AM 🥱.
   ![Bad reservation 1](readme-screenshots/badReservation1.png)
+  Backend responding with error message for new reservation on Tuesday (restaurant closed on Tuesdays).
   ![Bad reservation 2](readme-screenshots/badReservation2.png)
+  Backend responding with error message for new reservation in the past date.
   ![Bad reservation 3](readme-screenshots/badReservation3.png)
 
 - ### US-03 Create reservation within eligible timeframe
@@ -41,6 +51,7 @@ The application was developed following the user stories supplied by a figurativ
   I only want to allow reservations to be created during business hours, up to 60 minutes before closing
   so that users do not accidentally create a reservation for a time we cannot accommodate.
 
+Backend responding with error message for new reservation for 9:35 PM (restaurant closes at 10:30 PM).
 ![Bad reservation 4](readme-screenshots/US-3.png)
 
 - ### US-04 Seat reservation
@@ -49,7 +60,9 @@ The application was developed following the user stories supplied by a figurativ
   I want to seat (assign) their reservation to a specific table
   so that I know which tables are occupied and free.
 
+Seating "John Doe" to a table.
 ![Seat reservation](readme-screenshots/seatReservation.png)
+Dashboard displaying John Doe as seated and Bar #1 as occupied
 ![Seated reservation](readme-screenshots/seatedReservation.png)
 
 - ### US-05 Finish an occupied table
@@ -58,7 +71,9 @@ The application was developed following the user stories supplied by a figurativ
   I want to free up an occupied table when the guests leave
   so that I can seat new guests at that table.
 
+  Clicking red "Finish" button on table requires confirmation in the browser.
   ![Confirm finish Table](readme-screenshots/confirmFinishReservation.png)
+  Dashboard displaying Bar #1 as being free and "John Doe" disappeared from view.
   ![Finished Table](readme-screenshots/finishedReservation.png)
 
 - ### US-06 Reservation Status
@@ -66,6 +81,8 @@ The application was developed following the user stories supplied by a figurativ
   As a restaurant manager
   I want a reservation to have a status of either booked, seated, or finished
   so that I can see which reservation parties are seated, and finished reservations are hidden from the dashboard
+
+  Screenshot of all different statuses in DBeaver (SQL client software application).
   ![Status in SQL database](readme-screenshots/status.png)
 
 - ### US-07 Search for a reservation by phone number
@@ -74,6 +91,7 @@ The application was developed following the user stories supplied by a figurativ
   I want to search for a reservation by phone number (partial or complete)
   so that I can quickly access a customer's reservation when they call about their reservation.
 
+  "John Doe" reservation displays when number correct number is searched.
   ![Searched reservation](readme-screenshots/searchedReservation1.png)
 
 - ### US-08 Change an existing reservation
@@ -82,10 +100,15 @@ The application was developed following the user stories supplied by a figurativ
   I want to be able to modify a reservation if a customer calls to change or cancel their reservation
   so that reservations are accurate and current.
 
+  Reservations with status : "booked" are able to be changed
   ![Edit reservation](readme-screenshots/editReservation.png)
+  "Jane Doe" changed reservation time and party number.
   ![Changed reservation](readme-screenshots/editedReservation.png)
+  "Jane Doe" cancelling reservation.
   ![Confirm cancel reservation](readme-screenshots/confirmCancel.png)
+  Cancelled reservations are no longer displayed on dashboard.
   ![Confirm cancel reservation](readme-screenshots/canceledReservation.png)
+  Cancelled reservation can still be displayed when searched.
   ![Search canceled reservation](readme-screenshots/searchedReservation2.png)
 
 ## Technologies used
