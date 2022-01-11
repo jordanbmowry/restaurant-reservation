@@ -1,5 +1,4 @@
 const hasProperties = require('../errors/hasProperties');
-const isPast = require('date-fns/isPast');
 const service = require('./reservations.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 const hasOnlyValidProperties = require('../errors/hasOnlyValidProperties');
@@ -37,11 +36,6 @@ function dateIsTuesday(dateString) {
 }
 
 function isDateInFuture(dateString, timeString) {
-  // const reservationDate = dateString + 'T' + timeString;
-
-  // const utc = new Date(reservationDate).toUTCString();
-
-  // return validator.isAfter(utc);
   const now = new Date();
   // creating a date object using a string like:  '2021-10-08T01:21:00'
   const reservationDate = new Date(dateString + 'T' + timeString);

@@ -13,24 +13,25 @@ This is a full stack capstone project for [Thinkful's software engineering bootc
 
 The application was developed following the user stories supplied by a figurative manager, using a test driven development process. Users (restaurant employees) of this application can currently:
 
-- Create a new reservation (when a customer calls in) with contact details
+- Create a new reservation (when a customer calls in) with contact details.
 
-![Create reservation error](readme-screenshots/createNewReservationError1.png)
-![Create reservation error](readme-screenshots/createNewReservationError2.png)
+![Create reservation error](readme-screenshots/closedOnTuesdays.png)
+![Create reservation error](readme-screenshots/hoursOfOperation.png)
 ![Created reservation](readme-screenshots/createdReservation.png)
 
 - Multiple validations ensure a reservation can not be made outside of business hours or created in the past.
 
-![Create table](readme-screenshots/createNewTable.png)
+![Create table](readme-screenshots/newTable.png)
 ![Created table](readme-screenshots/createdTable.png)
 
-- Create instances of each table and seating capacity that are available to customers so that reservations can be assigned to a table when the party arrives at the restaurant.
+- Create instances of each table and seating capacity that are available to customers so that reservations can be assigned to a table.when the party arrives at the restaurant.
 
-![Assign reservation to table](readme-screenshots/assignToTable.png)
-![Assigned table](readme-screenshots/assignedTable.png)
+![Assign reservation to table](readme-screenshots/seatReservation.png)
+![Assigned table](readme-screenshots/seatedReservation.png)
 
 - Assign a reservation to a table to occupy a table at the restaurant.
 
+![Finish table confirmation](readme-screenshots/finishTableConfirmation.png)
 ![Finished table](readme-screenshots/finishedTable.png)
 
 - "finish" a table to make that table available for use again and remove the customer from view on the dashboard.
