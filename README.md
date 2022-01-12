@@ -18,7 +18,7 @@ The application was developed following the user stories supplied by a figurativ
   I want to create a new reservation when a customer calls
   so that I know how many customers will arrive at the restaurant on a given day.
 
-Dashboard does not display tables if no tables are in the database or reservations if no reservations are created for the date on dashboard.
+Dashboard does not display tables if no tables are in the database or if there are no reservations created for the date on dashboard.
 ![Empty Dashboard](readme-screenshots/emptyDashboard.png)
 Creating a new reservation "John Doe".
 ![Create reservation John Doe](readme-screenshots/createdReservation1.png)
