@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import snackbar from 'snackbar';
 import useFetch, { listReservations } from '../utils/api';
 import ErrorAlert from '../layout/ErrorAlert';
 import useQuery from '../utils/useQuery.js';
@@ -20,6 +21,24 @@ function Dashboard({ date }) {
   if (dateInUrl) {
     date = dateInUrl;
   }
+
+  useEffect(() => {
+    const showDeleteSnackbar = sessionStorage.getItem(
+      'snackbarCancelReservation'
+    );
+    if (showDeleteSnackbar) {
+      snackbar.show('Reservation canceled.');
+      sessionStorage.removeItem('snackbarCancelReservation');
+    }
+
+    const showFinishedTableSnackBar = sessionStorage.getItem(
+      'snackbarFinishTable'
+    );
+    if (showFinishedTableSnackBar) {
+      snackbar.show('Finished table.');
+      sessionStorage.removeItem('snackbarFinishTable');
+    }
+  }, []);
 
   const { get } = useFetch();
   const [reservations, setReservations] = useState([]);

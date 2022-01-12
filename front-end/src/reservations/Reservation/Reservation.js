@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import snackbar from 'snackbar';
 import { useHistory } from 'react-router-dom';
 import SeatButton from '../SeatButton/SeatButton';
 import EditButton from '../EditButton/EditButton';
@@ -44,6 +45,7 @@ export default function Reservation({ reservation }) {
           },
           controller
         );
+        sessionStorage.setItem('snackbarCancelReservation', 'true');
         history.go(0);
       }
     } catch (error) {

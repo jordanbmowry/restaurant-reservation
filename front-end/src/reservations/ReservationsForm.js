@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import snackbar from 'snackbar';
 import { useHistory, useParams } from 'react-router-dom';
 import { today, formatAsTime } from '../utils/date-time';
 import Form from '../layout/Form';
@@ -74,6 +75,7 @@ export default function ReservationsForm({ method }) {
     try {
       await post('/reservations', formData, controller);
       setFormData({ ...initialFormState });
+      snackbar.show('New reservation created.');
       history.push(`/dashboard?date=${formData.reservation_date}`);
     } catch (error) {
       setError(error);
@@ -93,6 +95,7 @@ export default function ReservationsForm({ method }) {
     const controller = new AbortController();
     try {
       await put(`/reservations/${reservation_id}`, rest, controller);
+      snackbar.show('Reservation changed.');
       history.push(`/dashboard?date=${formData.reservation_date}`);
     } catch (error) {
       setError(error);

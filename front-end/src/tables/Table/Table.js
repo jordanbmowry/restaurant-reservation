@@ -38,6 +38,7 @@ export default function Table(props) {
         )
       ) {
         await destroy(`/tables/${table_id}/seat`, controller);
+        sessionStorage.setItem('snackbarFinishTable', 'true');
         history.go(0);
       }
     } catch (error) {

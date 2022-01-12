@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import snackbar from 'snackbar';
 import Form from '../../layout/Form';
 import FormInput from '../../layout/FormInput';
 import Button from '../../layout/Button';
@@ -38,6 +39,7 @@ export default function NewTable() {
     try {
       await post('/tables', formData, controller);
       setFormData({ ...initialFormState });
+      snackbar.show('New table created.');
       history.push(`/dashboard`);
     } catch (error) {
       setError(error);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import snackbar from 'snackbar';
 import { useHistory, useParams } from 'react-router';
 import useFetch from '../../utils/api';
 import ErrorAlert from '../../layout/ErrorAlert';
@@ -77,6 +78,7 @@ export default function Seat() {
         },
         controller
       );
+      snackbar.show('Reservation seated.');
       history.push('/dashboard');
     } catch (error) {
       setAssignTableError(error);
