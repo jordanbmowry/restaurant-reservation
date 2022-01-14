@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import snackbar from 'snackbar';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SeatButton from '../SeatButton/SeatButton';
 import EditButton from '../EditButton/EditButton';
@@ -7,11 +6,13 @@ import CancelButton from '../CancelButton/CancelButton';
 import clsx from 'clsx';
 import useFetch from '../../utils/api';
 import ErrorAlert from '../../layout/ErrorAlert';
+import { ThemeContext } from '../../ThemeContext/ThemeContext';
 
 export default function Reservation({ reservation }) {
   const [error, setError] = useState(null);
   const { put } = useFetch();
   const history = useHistory();
+  const { isDarkTheme } = useContext(ThemeContext);
   const {
     reservation_id,
     first_name,
@@ -29,6 +30,8 @@ export default function Reservation({ reservation }) {
     'border-success': status === 'seated',
     'text-success': status === 'seated',
   });
+
+  const dark = clsx({ dark: isDarkTheme });
 
   const confirmCancel = async () => {
     const controller = new AbortController();
@@ -57,7 +60,7 @@ export default function Reservation({ reservation }) {
 
   return (
     <div className='card-deck'>
-      <div className={`card`} style={{ width: '18rem' }}>
+      <div className={`card ${dark}`} style={{ width: '18rem' }}>
         <div className='card-body text-center'>
           <p className='card-text'>{reservation_date}</p>
           <p className='card-text'>{reservation_time}</p>

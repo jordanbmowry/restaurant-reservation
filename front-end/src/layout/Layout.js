@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Menu from './Menu';
 import Routes from './Routes';
+import clsx from 'clsx';
+import { ThemeContext } from '../ThemeContext/ThemeContext';
 
 import './Layout.css';
 
@@ -12,10 +14,15 @@ import './Layout.css';
  * @returns {JSX.Element}
  */
 function Layout() {
+  const { isDarkTheme } = useContext(ThemeContext);
+
+  const classNames = clsx({
+    dark: isDarkTheme,
+  });
   return (
     <div className='container-fluid'>
       <div className='row h-100'>
-        <div className='col-md-2 side-bar'>
+        <div className={`col-md-2 side-bar ${classNames}`}>
           <Menu />
         </div>
         <div className='col'>

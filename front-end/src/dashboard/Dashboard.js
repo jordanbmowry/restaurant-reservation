@@ -9,6 +9,7 @@ import CurrentTime from '../layout/CurrentTime';
 import ReservationList from '../reservations/ReservationList/ReservationList';
 import TablesList from '../tables/TablesList/TablesList';
 import DateNavigation from './DateNavigation';
+import Divider from '../layout/Divider.js';
 
 /**
  * Defines the dashboard page.
@@ -85,7 +86,7 @@ function Dashboard({ date }) {
       <main>
         <h1 className='my-4'>Dashboard</h1>
         <CurrentTime />
-        <div className='w-100 p-2 bg-dark my-4'></div>
+        <Divider />
         <h3 className='my-4 font-weight-bold'>Reservations</h3>
         <div className='d-md-flex mb-3'></div>
         <ErrorAlert error={reservationsError} />
@@ -94,7 +95,7 @@ function Dashboard({ date }) {
         ) : (
           <ReservationList reservations={reservations} />
         )}
-        <div className='w-100 p-2 bg-dark mt-4'></div>
+        <Divider />
         <h3 className='my-4 font-weight-bold'>Tables</h3>
         <ErrorAlert error={tablesError} />
         {tablesIsLoading ? <Loader /> : <TablesList tables={tables} />}

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 import Button from '../../layout/Button';
 import useFetch from '../../utils/api';
 import { useHistory } from 'react-router-dom';
 import ErrorAlert from '../../layout/ErrorAlert';
+import { ThemeContext } from '../../ThemeContext/ThemeContext';
 
 export default function Table(props) {
   const { table_name, capacity, table_id } = props.table;
@@ -11,11 +12,16 @@ export default function Table(props) {
   const history = useHistory();
   const { destroy } = useFetch();
   const [error, setError] = useState(null);
-
+  const { isDarkTheme } = useContext(ThemeContext);
   const classNames1 = clsx(
-    { card: true, 'border-danger': occupied, 'border-success': !occupied },
+    {
+      'border-danger': occupied,
+      'border-success': !occupied,
+      dark: isDarkTheme,
+    },
     'px-4',
     'py-2',
+    'table',
     props.className
   );
 
@@ -49,7 +55,7 @@ export default function Table(props) {
   };
 
   return (
-    <div className={classNames1}>
+    <div className={`${classNames1} card`}>
       <div className='card-body text-center'>
         <h5 className='card-title my-2'>Table: {table_name}</h5>
         <h6 className='card-subtitle my-2'>

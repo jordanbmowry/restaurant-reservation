@@ -1,6 +1,7 @@
-import React from 'react';
-
+import React, { useEffect, useContext } from 'react';
+import Button from './Button';
 import { Link, NavLink } from 'react-router-dom';
+import { ThemeContext } from '../ThemeContext/ThemeContext';
 
 /**
  * Defines the menu for this application.
@@ -9,6 +10,16 @@ import { Link, NavLink } from 'react-router-dom';
  */
 
 function Menu() {
+  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (isDarkTheme) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [isDarkTheme]);
+
   return (
     <nav className='navbar navbar-dark align-items-start p-0'>
       <div className='container-fluid d-flex flex-column p-0'>
@@ -58,6 +69,11 @@ function Menu() {
               <i className='fas fa-utensils'></i>
               &nbsp;New Table
             </NavLink>
+          </li>
+          <li className='nav-item'>
+            <Button className='btn btn-light' onClick={toggleTheme}>
+              {isDarkTheme ? 'Dark' : 'Light'}
+            </Button>
           </li>
         </ul>
         <div className='text-center d-none d-md-inline'>
