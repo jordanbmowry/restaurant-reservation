@@ -3,16 +3,15 @@ import React, { createContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 function ThemeProvider(props) {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    const retrievedValue = localStorage.getItem('isDarkTheme');
+
+    return retrievedValue !== null ? retrievedValue === 'true' : false;
+  });
 
   useEffect(() => {
-    const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-    if (prefersDark) {
-      setIsDarkTheme(true);
-    }
-  }, []);
+    localStorage.setItem('isDarkTheme', isDarkTheme);
+  }, [isDarkTheme]);
 
   function toggleTheme() {
     setIsDarkTheme(!isDarkTheme);
