@@ -4,6 +4,10 @@
 
 [Restaurant Reservation](https://reservation-front-end.herokuapp.com/)
 
+**Application uses Mountain Standard Time**
+
+## Description
+
 This is a full stack capstone project for [Thinkful's software engineering bootcamp](https://www.thinkful.com/bootcamp/web-development/). The following scenario was given as a prompt:
 
 > You have been hired as a full stack developer at a startup that is creating a reservation system for fine dining restaurants.
