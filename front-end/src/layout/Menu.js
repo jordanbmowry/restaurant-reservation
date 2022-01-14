@@ -70,7 +70,7 @@ function Menu() {
               &nbsp;New Table
             </NavLink>
           </li>
-          <li className='nav-item'>
+          <li className='nav-item mb-3 text-center'>
             <Button className='btn btn-light' onClick={toggleTheme}>
               {isDarkTheme ? 'Dark' : 'Light'}
             </Button>
