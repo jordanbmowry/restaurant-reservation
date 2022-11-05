@@ -66,7 +66,7 @@ function Dashboard({ date }) {
     }
     loadTables();
     return () => controller.abort();
-  }, []);
+  }, [get]);
 
   function loadDashboard() {
     const abortController = new AbortController();
