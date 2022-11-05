@@ -45,7 +45,7 @@ export default function ReservationsForm({ method }) {
       fetchReservationToEdit(reservation_id);
       return () => controller.abort();
     }
-  }, [reservation_id, method]);
+  }, [reservation_id, method, get]);
 
   const handleChange = ({ target }) => {
     if (

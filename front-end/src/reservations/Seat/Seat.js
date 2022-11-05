@@ -45,7 +45,7 @@ export default function Seat() {
     }
     loadTables();
     return () => controller.abort();
-  }, []);
+  }, [get]);
 
   // load reservation
   useEffect(() => {
@@ -65,7 +65,7 @@ export default function Seat() {
     }
     loadReservation();
     return () => controller.abort();
-  }, [reservation_id]);
+  }, [get, reservation_id]);
 
   const handleSubmit = async (event) => {
     const controller = new AbortController();
