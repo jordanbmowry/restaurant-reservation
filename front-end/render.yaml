@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: your-frontend-app-name
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
