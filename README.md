@@ -2,7 +2,7 @@
 
 ## Live Demo
 
-[Restaurant Reservation](https://reservation-front-end.herokuapp.com/)
+[Restaurant Reservation](https://restaurant-reservation-frontend-k90h.onrender.com/#/dashboard/)
 
 **Application uses Mountain Standard Time**
 
